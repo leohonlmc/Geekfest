@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AWS from "aws-sdk";
+import ViewIcon from "./popup/ViewIcon";
 
 const {
   REACT_APP_API_ENDPOINT,
@@ -37,6 +38,9 @@ function User() {
   const [imageSrcs, setImageSrcs] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [currentImage, setCurrentImage] = useState("");
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -77,7 +81,6 @@ function User() {
       try {
         const response = await axiosInstance.get(`/allImages/${sub}`);
         setAllImage(response.data.image[0]);
-        console.log(response.data.image[0]);
       } catch (error) {
         console.log(error);
       }
@@ -149,6 +152,11 @@ function User() {
   return (
     <div className="User">
       <ToastContainer />
+
+      {showPopup && (
+        <ViewIcon setShowPopup={setShowPopup} image={currentImage} />
+      )}
+
       <div className="main">
         <div
           className="container d-flex justify-content-center mt-100"
@@ -214,7 +222,7 @@ function User() {
                   <p style={{ color: "darkgray" }}>(Up to 5 photos)</p>
                 </div>
               </div>
-              {imageSrcs ? (
+              {imageSrcs.length > 0 ? (
                 <div
                   style={{
                     padding: "5px",
@@ -271,13 +279,21 @@ function User() {
               <h4>
                 Browsing all{" "}
                 <strong style={{ color: "rgb(0, 213, 255)" }}>
-                  {allImage.images.length}
+                  {allImage.images && allImage.images.length}
                 </strong>{" "}
                 images
               </h4>
               {allImage.images &&
                 allImage.images.map((image, index) => (
-                  <div className="image-item" style={{ display: "flex" }}>
+                  <div
+                    className="image-item"
+                    style={{ display: "flex" }}
+                    onClick={() => {
+                      setShowPopup(true);
+                      setCurrentImage(image);
+                    }}
+                    key={index}
+                  >
                     <div
                       className="child-image-item"
                       style={{ display: "flex" }}

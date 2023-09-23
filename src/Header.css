@@ -1,0 +1,196 @@
+.nav-link {
+  color: black;
+}
+
+.header-searhbar {
+  width: 100%;
+}
+
+.a001 {
+  border-bottom: 1px solid #eaeaea;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.a002 {
+  padding-top: 6px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eaeaea;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-input {
+  padding: 10px 35px;
+  border-radius: 5px;
+  background-color: #eaeaea;
+  border: 3px solid transparent;
+  padding-right: 110px;
+}
+
+.search-input:focus {
+  outline: none;
+  background-color: white;
+  border: 3px solid #b0d7a8;
+  border-radius: 0px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: grey;
+}
+
+.search-btn {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0px !important;
+}
+
+.auth-btn {
+  background-color: transparent;
+  border: 0px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Use space-between to push children to the edges */
+  width: 100%; /* Make sure it takes the full width */
+}
+
+.right-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.D_bat {
+  width: 100%;
+  border-bottom: 1px solid rgb(197, 197, 198);
+  margin: auto -24px 24px;
+}
+
+.D_akS {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.D_oR {
+  font-size: 24px;
+  line-height: 32px;
+}
+.D_oN {
+  font-weight: 600;
+}
+
+.short-text {
+  display: none;
+}
+
+.D_akX {
+  margin-bottom: 24px;
+}
+
+.D_akX_1 {
+  align-items: center;
+  border: 1px solid lightgray;
+  margin-bottom: 24px;
+  padding: 8px 16px;
+  position: relative;
+  width: 100%;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.D_akX_1:hover {
+  background-color: rgb(241, 246, 247) !important;
+  border: 1px solid rgb(210, 224, 227);
+}
+
+.D_alb {
+  margin-top: 16px;
+}
+
+.all-card-img-section {
+  background-color: rgb(240, 241, 241);
+  overflow: auto;
+}
+
+.all-card-img-sub-section {
+  margin: auto;
+  text-align: center;
+  width: 370px;
+  overflow: auto;
+}
+
+.D_Cn {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.D_aUy-1 {
+  background-color: transparent !important;
+  border: 0px;
+  cursor: pointer;
+  height: 40px;
+  margin: 10px;
+  width: 40px;
+  z-index: 11;
+  position: absolute;
+  top: 40%;
+  left: 0%;
+  padding: 6px 10px !important;
+}
+
+.D_aUy {
+  background-color: transparent !important;
+  border: 0px;
+  cursor: pointer;
+  height: 40px;
+  margin: 10px;
+  width: 40px;
+  z-index: 11;
+  position: absolute;
+  top: 40%;
+  right: 0%;
+  padding: 6px 10px !important;
+}
+
+@media screen and (max-width: 1000px) {
+  .Luxury {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .register-btn {
+    display: none;
+  }
+  .login-btn {
+    padding: 0px;
+  }
+  .navbar-brand {
+    margin: 0px;
+  }
+  .btn-danger {
+    padding: 4px 14px !important;
+  }
+  .full-text {
+    display: none;
+  }
+  .short-text {
+    display: block;
+  }
+}
