@@ -43,6 +43,7 @@ function User() {
   const [showPopup, setShowPopup] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
 
+  const [getPin, setGetPin] = useState("");
   const [correctPin, setCorrectPin] = useState(false);
   const pin = "123";
   const [pinEntered, setPinEntered] = useState(false);
@@ -187,8 +188,16 @@ function User() {
   const randomString = generateRandomString();
 
   const handlePin = (e) => {
-    if (e.target.value === pin) {
+    setGetPin(e.target.value);
+  };
+
+  const handlePinSubmit = (e) => {
+    if (getPin === pin) {
       setCorrectPin(true);
+      setPinEntered(true);
+    } else {
+      setCorrectPin(false);
+      setPinEntered(true);
     }
   };
 
@@ -357,10 +366,18 @@ function User() {
                 <>
                   <p>Please enter pin to access:</p>
                   <input
+                    className="input-pin"
                     type="text"
                     placeholder="Enter pin"
                     onChange={handlePin}
                   />
+                  <button
+                    className="btn btn-primary"
+                    style={{ marginLeft: "10px" }}
+                    onClick={() => handlePinSubmit()}
+                  >
+                    Submit
+                  </button>
                 </>
               ) : (
                 <div>
