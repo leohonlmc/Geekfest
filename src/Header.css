@@ -69,6 +69,12 @@
   width: 100%; /* Make sure it takes the full width */
 }
 
+.sub-navbar {
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0px !important;
+}
+
 .right-nav {
   display: flex;
   justify-content: flex-end;

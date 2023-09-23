@@ -9,7 +9,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/upload" element={<User />} />
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>

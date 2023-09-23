@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AWS from "aws-sdk";
 import ViewIcon from "./popup/ViewIcon";
+import Header from "./partial/Header";
 
 const {
   REACT_APP_API_ENDPOINT,
@@ -149,9 +150,18 @@ function User() {
     } catch (err) {}
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
+
+    navigate("/");
+  };
+
   return (
     <div className="User">
       <ToastContainer />
+
+      <Header />
 
       {showPopup && (
         <ViewIcon setShowPopup={setShowPopup} image={currentImage} />
@@ -308,6 +318,11 @@ function User() {
                     </div>
                   </div>
                 ))}
+            </div>
+            <div>
+              <button className="btn btn-danger" onClick={() => logout()}>
+                Logout
+              </button>
             </div>
           </div>
         </div>
