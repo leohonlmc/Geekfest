@@ -43,6 +43,20 @@ function User() {
   const [showPopup, setShowPopup] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
 
+  const [correctPin, setCorrectPin] = useState(false);
+  const pin = "123";
+  const [pinEntered, setPinEntered] = useState(false);
+
+  const fakeImage = [
+    "312kjajkbda38apple.png",
+    "adha34g2j53iuugjfamily.jpeg",
+    "31231238un34jjdavsjddiphone.png",
+    "jdlasjdak82311k23hkklake.png",
+    "3127nkjkbjk4bhgc412chround.webp",
+    "3123hkjkb4k341vhsea-view.jpeg",
+    "3123kjkbkae88dastree-view.jpeg",
+  ];
+
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
   };
@@ -130,6 +144,7 @@ function User() {
           console.log(err);
         } else {
           toast.success("File uploaded successfully");
+          window.location.reload(false);
         }
       });
     }
@@ -170,7 +185,12 @@ function User() {
   }
 
   const randomString = generateRandomString();
-  console.log(randomString);
+
+  const handlePin = (e) => {
+    if (e.target.value === pin) {
+      setCorrectPin(true);
+    }
+  };
 
   return (
     <div className="User">
@@ -274,21 +294,34 @@ function User() {
                   </div>
                 </div>
               ) : null}
-
-              <div className="list-item-btn">
-                <button
-                  className="btn btn-success"
-                  style={{ padding: "4px 24px", fontWeight: "bold" }}
-                  onClick={() => handleUpload()}
-                >
-                  List now
-                </button>
-              </div>
+              {pinEntered === false ? (
+                <div className="list-item-btn">
+                  <button
+                    className="btn btn-success"
+                    style={{ padding: "4px 24px", fontWeight: "bold" }}
+                    disabled={true}
+                  >
+                    List now
+                  </button>
+                </div>
+              ) : (
+                <div className="list-item-btn">
+                  <button
+                    className="btn btn-success"
+                    style={{ padding: "4px 24px", fontWeight: "bold" }}
+                    onClick={() => handleUpload()}
+                  >
+                    List now
+                  </button>
+                </div>
+              )}
             </div>
 
             {windowWidth > 1208 ? null : (
               <div style={{ padding: "20px" }}></div>
             )}
+
+            {/* right side */}
 
             <div
               className="col-md-7 col-lg-7 col-sm-12"
@@ -302,38 +335,94 @@ function User() {
               }}
             >
               <h2>Uploaded Images</h2>
-              <h4>
-                Browsing all{" "}
-                <strong style={{ color: "rgb(0, 213, 255)" }}>
-                  {allImage.images && allImage.images.length}
-                </strong>{" "}
-                images
-              </h4>
-              {allImage.images &&
-                allImage.images.map((image, index) => (
-                  <div
-                    className="image-item"
-                    style={{ display: "flex" }}
-                    onClick={() => {
-                      setShowPopup(true);
-                      setCurrentImage(image);
-                    }}
-                    key={index}
-                  >
-                    <div
-                      className="child-image-item"
-                      style={{ display: "flex" }}
-                    >
-                      <p key={index}>{image}</p>
+              {correctPin === false ? (
+                <h4>
+                  Browsing all{" "}
+                  <strong style={{ color: "rgb(0, 213, 255)" }}>
+                    {fakeImage && fakeImage.length}
+                  </strong>{" "}
+                  images
+                </h4>
+              ) : (
+                <h4>
+                  Browsing all{" "}
+                  <strong style={{ color: "rgb(0, 213, 255)" }}>
+                    {allImage.images && allImage.images.length}
+                  </strong>{" "}
+                  images
+                </h4>
+              )}
+
+              {pinEntered === false ? (
+                <>
+                  <p>Please enter pin to access:</p>
+                  <input
+                    type="text"
+                    placeholder="Enter pin"
+                    onChange={handlePin}
+                  />
+                </>
+              ) : (
+                <div>
+                  {correctPin === false ? (
+                    <div>
+                      {fakeImage &&
+                        fakeImage.map((image, index) => (
+                          <div
+                            className="image-item"
+                            style={{ display: "flex" }}
+                            onClick={() => {
+                              setShowPopup(true);
+                              setCurrentImage(image);
+                            }}
+                            key={index}
+                          >
+                            <div
+                              className="child-image-item"
+                              style={{ display: "flex" }}
+                            >
+                              <p key={index}>{image}</p>
+                            </div>
+                            <div
+                              className="child-image-item"
+                              style={{ marginLeft: "auto", marginRight: "0px" }}
+                            >
+                              Show
+                            </div>
+                          </div>
+                        ))}
                     </div>
-                    <div
-                      className="child-image-item"
-                      style={{ marginLeft: "auto", marginRight: "0px" }}
-                    >
-                      Show
+                  ) : (
+                    <div>
+                      {allImage.images &&
+                        allImage.images.map((image, index) => (
+                          <div
+                            className="image-item"
+                            style={{ display: "flex" }}
+                            onClick={() => {
+                              setShowPopup(true);
+                              setCurrentImage(image);
+                            }}
+                            key={index}
+                          >
+                            <div
+                              className="child-image-item"
+                              style={{ display: "flex" }}
+                            >
+                              <p key={index}>{image}</p>
+                            </div>
+                            <div
+                              className="child-image-item"
+                              style={{ marginLeft: "auto", marginRight: "0px" }}
+                            >
+                              Show
+                            </div>
+                          </div>
+                        ))}
                     </div>
-                  </div>
-                ))}
+                  )}
+                </div>
+              )}
             </div>
             <div className="logout-btn-div">
               <button className="btn btn-danger" onClick={() => logout()}>
