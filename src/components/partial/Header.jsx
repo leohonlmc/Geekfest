@@ -3,11 +3,8 @@ import React, { useRef, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "../popup/Login";
 const { REACT_APP_API_ENDPOINT } = process.env;
 
 function Header() {
@@ -25,6 +22,8 @@ function Header() {
           />
         </a>
         <div className="navbar sub-navbar" id="navbarNavDropdown">
+          {showPopup && <Login setShowPopup={setShowPopup} />}
+
           <ul className="navbar-nav">
             <li className="nav-item active">
               <a className="nav-link" href="/">
@@ -39,13 +38,9 @@ function Header() {
               </li>
             ) : (
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#"
-                  onClick={() => setShowPopup(true)}
-                >
+                <span className="nav-link" onClick={() => setShowPopup(true)}>
                   Upload
-                </a>
+                </span>
               </li>
             )}
           </ul>

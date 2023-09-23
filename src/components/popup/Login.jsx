@@ -3,20 +3,54 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import "../../Header.css";
+import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import Login_auth from "../popup/Login_auth";
 import jwt_decode from "jwt-decode";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const { REACT_APP_API_ENDPOINT } = process.env;
 
-const Login = ({ setShowPopup, setShowRegisterPopup, ...props }) => {
+const Login = ({ setShowPopup, ...props }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(true);
-  const [loginMethod, setLoginMethod] = useState(true);
-  const [login, setLogin] = useState(false);
 
   const closePopup = () => {
     setIsPopupVisible(false);
     setShowPopup(false);
+  };
+
+  const navigate = useNavigate();
+
+  const handleGoogleSubmit = async (
+    sub,
+    username,
+    firstName,
+    lastName,
+    email,
+    icon
+  ) => {
+    try {
+      const { data } = await axios.post(
+        `${REACT_APP_API_ENDPOINT}/google/register`,
+        {
+          sub,
+          username,
+          firstName,
+          lastName,
+          email,
+          icon,
+        },
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("id", data.user);
+    } catch (ex) {
+      console.log(ex);
+      toast.error("Email already exists or invalid email");
+    }
   };
 
   return (
@@ -45,94 +79,27 @@ const Login = ({ setShowPopup, setShowRegisterPopup, ...props }) => {
           <div style={{ padding: "24px", width: "100%" }}>
             <h3 className="D_akS D_oF D_ou D_oJ D_oN D_oR">Login</h3>
 
-            {loginMethod ? (
-              <div>
-                <div className="D_akX" style={{ width: "100%" }}>
-                  <GoogleLogin
-                    className="D_akX"
-                    onSuccess={(credentialResponse) => {
-                      var decoded = jwt_decode(credentialResponse.credential);
-                      // handleGoogleSubmit(
-                      //   decoded.sub,
-                      //   decoded.name,
-                      //   decoded.given_name,
-                      //   decoded.family_name,
-                      //   decoded.email,
-                      //   decoded.picture
-                      // );
-                    }}
-                    onError={() => {
-                      console.log("Login Failed");
-                    }}
-                  />
-                </div>
-
-                <button
-                  className="D_pY D_qu D_qm D_qh D_qy D_akX_1"
-                  type="button"
-                >
-                  <div
-                    style={{ display: "flex", justifyContent: "flex-start" }}
-                  >
-                    <img
-                      alt=""
-                      className="D_oV D_oS D_akZ"
-                      crossOrigin="anonymous"
-                      src="https://mweb-cdn.karousell.com/build/mobile-and-email-icon-151eb72cf0.svg"
-                      title=""
-                    />
-                    <div
-                      style={{ width: "100%" }}
-                      onClick={() => {
-                        setLoginMethod(false);
-                        setLogin(true);
-                      }}
-                    >
-                      <p
-                        style={{
-                          textAlign: "center",
-                          fontWeight: "normal",
-                          fontSize: "0.9rem",
-                        }}
-                      >
-                        Email
-                      </p>
-                    </div>
-                  </div>
-                </button>
-              </div>
-            ) : (
-              <>
-                <Login_auth />
-                <button
-                  className="other-log-in-optinos"
-                  onClick={() => setLoginMethod(true)}
-                >
-                  Other Log in options
-                </button>
-              </>
-            )}
-
-            <div className="D_alb">
-              <p
-                className="D_pv D_os D_pw D_p_ D_pC D_pG D_pI D_pL"
-                style={{ textAlign: "center", fontSize: "0.9rem" }}
-              >
-                Don't have an account yet?{" "}
-                <a
-                  className="D_alc D_AB"
-                  href="#"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setShowPopup(false);
-                    setShowRegisterPopup(true);
+            <div>
+              <div className="D_akX" style={{ width: "100%" }}>
+                <GoogleLogin
+                  className="D_akX"
+                  onSuccess={(credentialResponse) => {
+                    var decoded = jwt_decode(credentialResponse.credential);
+                    handleGoogleSubmit(
+                      decoded.sub,
+                      decoded.name,
+                      decoded.given_name,
+                      decoded.family_name,
+                      decoded.email,
+                      decoded.picture
+                    );
+                    navigate("/upload");
                   }}
-                  style={{ color: "#008f79", fontWeight: "bold" }}
-                >
-                  Create account
-                </a>
-              </p>
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

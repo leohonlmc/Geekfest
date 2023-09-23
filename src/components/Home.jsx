@@ -12,40 +12,6 @@ import Header from "./partial/Header";
 const { REACT_APP_API_ENDPOINT } = process.env;
 
 function Home() {
-  const navigate = useNavigate();
-
-  const handleGoogleSubmit = async (
-    sub,
-    username,
-    firstName,
-    lastName,
-    email,
-    icon
-  ) => {
-    try {
-      const { data } = await axios.post(
-        `${REACT_APP_API_ENDPOINT}/google/register`,
-        {
-          sub,
-          username,
-          firstName,
-          lastName,
-          email,
-          icon,
-        },
-        {
-          withCredentials: true,
-          credentials: "include",
-        }
-      );
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("id", data.user);
-    } catch (ex) {
-      console.log(ex);
-      toast.error("Email already exists or invalid email");
-    }
-  };
-
   return (
     <div className="Home">
       <Header />
@@ -69,25 +35,6 @@ function Home() {
             </button>
           </div>
         </div>
-
-        <GoogleLogin
-          className="D_akX"
-          onSuccess={(credentialResponse) => {
-            var decoded = jwt_decode(credentialResponse.credential);
-            handleGoogleSubmit(
-              decoded.sub,
-              decoded.name,
-              decoded.given_name,
-              decoded.family_name,
-              decoded.email,
-              decoded.picture
-            );
-            navigate("/upload");
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-        />
       </div>
     </div>
   );
