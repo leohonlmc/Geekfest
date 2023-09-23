@@ -96,7 +96,7 @@ function User() {
   }, []);
 
   const handleFileChange = (event) => {
-    setImageFiles(event.target.files[0].name);
+    setImageFiles(randomString + event.target.files[0].name);
     setSelectedFile(event.target.files[0]);
 
     const reader = new FileReader();
@@ -156,6 +156,21 @@ function User() {
 
     navigate("/");
   };
+
+  function generateRandomString() {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?/";
+    let result = "";
+    for (let i = 0; i < 10; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      result += chars[randomIndex];
+    }
+    result += localStorage.getItem("id");
+    return result;
+  }
+
+  const randomString = generateRandomString();
+  console.log(randomString);
 
   return (
     <div className="User">
@@ -226,10 +241,11 @@ function User() {
                         cursor: "pointer",
                       }}
                       onChange={handleFileChange}
+                      accept="image/*"
                     />
                   </button>
                   <p style={{ paddingTop: "10px" }}>or drag photos here</p>
-                  <p style={{ color: "darkgray" }}>(Up to 5 photos)</p>
+                  <p style={{ color: "darkgray" }}>(1 image a time)</p>
                 </div>
               </div>
               {imageSrcs.length > 0 ? (
@@ -319,7 +335,7 @@ function User() {
                   </div>
                 ))}
             </div>
-            <div>
+            <div className="logout-btn-div">
               <button className="btn btn-danger" onClick={() => logout()}>
                 Logout
               </button>

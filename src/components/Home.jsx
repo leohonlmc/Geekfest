@@ -40,7 +40,6 @@ function Home() {
       );
       localStorage.setItem("token", data.token);
       localStorage.setItem("id", data.user);
-      navigate("/upload");
     } catch (ex) {
       console.log(ex);
       toast.error("Email already exists or invalid email");
@@ -83,6 +82,7 @@ function Home() {
               decoded.email,
               decoded.picture
             );
+            navigate("/upload");
           }}
           onError={() => {
             console.log("Login Failed");
