@@ -310,7 +310,7 @@ function User() {
                     style={{ padding: "4px 24px", fontWeight: "bold" }}
                     disabled={true}
                   >
-                    List now
+                    Verify Pin
                   </button>
                 </div>
               ) : (
