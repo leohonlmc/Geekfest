@@ -391,7 +391,7 @@ function User() {
                             className="child-image-item"
                             style={{ display: "flex" }}
                           >
-                            <p key={index}>{image.slice(31)}</p>
+                            <p key={index}>{image}</p>
                           </div>
                           <div
                             className="child-image-item"
