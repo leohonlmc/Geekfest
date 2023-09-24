@@ -145,14 +145,13 @@ function User() {
           console.log(err);
         } else {
           toast.success("File uploaded successfully");
-          window.location.reload(false);
         }
       });
     }
 
     try {
       const response = await axios.post(
-        `${REACT_APP_API_ENDPOINT}/image`,
+        `${REACT_APP_API_ENDPOINT}/image/import`,
         {
           sub: localStorage.getItem("id"),
           images: imageFiles,
@@ -445,7 +444,7 @@ function User() {
                   ) : (
                     <div>
                       {allImage.images &&
-                        allImage.images.map((image, index) => (
+                        [...allImage.images].reverse().map((image, index) => (
                           <div
                             className="image-item"
                             style={{ display: "flex" }}
