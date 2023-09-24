@@ -1,17 +1,13 @@
 import "../App.css";
 import React, { useRef, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { GoogleLogin } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./partial/Header";
 import Footer from "./partial/Footer";
 import Login from "./popup/Login";
-const { REACT_APP_API_ENDPOINT } = process.env;
 
 function Home() {
   const navigate = useNavigate();
@@ -20,6 +16,7 @@ function Home() {
   return (
     <div className="Home">
       <Header />
+      <ToastContainer />
       <div className="main">
         <div
           className="slogan"
@@ -35,7 +32,7 @@ function Home() {
           {!localStorage.getItem("token") ? (
             <div>
               <h1 className="slogan-text">
-                <strong>Cloud Image Storage service</strong>
+                <strong>Secure Cloud Image Storage Solution</strong>
               </h1>
 
               <button

@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faXmark,
-  faAngleLeft,
-  faAngleRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import "../../Header.css";
 
 const ViewIcon = ({ setShowPopup, ...props }) => {
@@ -17,22 +12,6 @@ const ViewIcon = ({ setShowPopup, ...props }) => {
     setIsPopupVisible(false);
     setShowPopup(false);
   };
-
-  // const nextImg = () => {
-  //   if (imgindex < arr.length - 1) {
-  //     setImgIndex(imgindex + 1);
-  //   } else {
-  //     setImgIndex(0);
-  //   }
-  // };
-
-  // const prevImg = () => {
-  //   if (imgindex > 0) {
-  //     setImgIndex(imgindex - 1);
-  //   } else {
-  //     setImgIndex(arr.length - 1);
-  //   }
-  // };
 
   return (
     <div>
@@ -55,14 +34,6 @@ const ViewIcon = ({ setShowPopup, ...props }) => {
               </h1>
 
               <div>
-                {/* <button
-                  class="D_pW D_qs D_qk D_qp D_aUy-1"
-                  type="button"
-                  onClick={() => nextImg()}
-                >
-                  <FontAwesomeIcon icon={faAngleLeft} size="2xl" />
-                </button> */}
-
                 <img
                   src={`https://s3.ca-central-1.amazonaws.com/myswecompany.com/${props.image}`}
                   className="card-img-top"
@@ -74,14 +45,6 @@ const ViewIcon = ({ setShowPopup, ...props }) => {
                   alt="..."
                   onClick={() => setShowPopup(true)}
                 />
-
-                {/* <button
-                  class="D_pW D_qs D_qk D_qp D_aUy"
-                  type="button"
-                  onClick={() => prevImg()}
-                >
-                  <FontAwesomeIcon icon={faAngleRight} size="2xl" />
-                </button> */}
               </div>
               <div className="all-card-img-section">
                 <div className="all-card-img-sub-section">

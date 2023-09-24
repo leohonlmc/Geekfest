@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import AWS from "aws-sdk";
 import ViewIcon from "./popup/ViewIcon";
 import Header from "./partial/Header";
-import Footer from "./partial/Footer";
 
 const {
   REACT_APP_API_ENDPOINT,
@@ -181,6 +180,7 @@ function User() {
     localStorage.removeItem("id");
     localStorage.removeItem("scannedQRcode");
     localStorage.removeItem("verified");
+    alert("You have been logged out");
     navigate("/");
   };
 
