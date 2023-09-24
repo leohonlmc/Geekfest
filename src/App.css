@@ -26,12 +26,18 @@
 .mission-parent-div {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around; /* Optional, if you want to center the items with some space between them */
+  justify-content: space-around;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(0, 187, 255)
+  );
+  padding: 50px 10px;
 }
 
 .mission-div {
-  width: 500px; /* use min-width instead of width to make it responsive */
-  box-sizing: border-box; /* To include padding and border in the element's total width and height */
+  width: 500px;
+  box-sizing: border-box;
   margin: 30px 0px;
 }
 

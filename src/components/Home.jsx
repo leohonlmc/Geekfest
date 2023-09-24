@@ -62,7 +62,7 @@ function Home() {
           )}
         </div>
 
-        <div className="mission-parent-div" style={{ margin: "50px 0px" }}>
+        <div className="mission-parent-div">
           <div className="mission-div">
             <h2 className="centered-content">
               Leverage KeyHolder Solutions for Advanced Image Protection and
