@@ -186,7 +186,7 @@ function User() {
 
   function generateRandomString() {
     const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?/";
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$^*()_-+=<>?/";
     let result = "";
     for (let i = 0; i < 10; i++) {
       const randomIndex = Math.floor(Math.random() * chars.length);
@@ -408,7 +408,7 @@ function User() {
                   </div>
                 ) : (
                   <div>
-                    {allImage.images &&
+                    {allImage?.images &&
                       [...allImage.images].reverse().map((image, index) => (
                         <div
                           className="image-item"
