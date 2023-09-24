@@ -20,6 +20,10 @@ function Authenticator() {
       navigate("/upload");
     }
 
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
+
     const generate = async () => {
       try {
         const res = await axios.get(`${REACT_APP_API_ENDPOINT}/generate`);
