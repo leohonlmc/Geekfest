@@ -6,7 +6,13 @@
 .slogan {
   background-color: rgb(193, 237, 254);
   height: 500px;
-  background-image: url("https://s3.ca-central-1.amazonaws.com/myswecompany.com/cloud.png");
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.7),
+      rgb(0, 0, 0)
+    ),
+    url("https://s3.ca-central-1.amazonaws.com/myswecompany.com/cloud.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -15,4 +21,26 @@
 .slogan-text {
   color: white;
   text-shadow: 3px 3px 5px rgba(0, 44, 59, 0.5);
+}
+
+.mission-parent-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Optional, if you want to center the items with some space between them */
+}
+
+.mission-div {
+  width: 500px; /* use min-width instead of width to make it responsive */
+  box-sizing: border-box; /* To include padding and border in the element's total width and height */
+  margin: 30px 0px;
+}
+
+.centered-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%; /* Take full height of the parent div */
+  color: black;
+  font-weight: bold;
+  margin-bottom: 10px; /* Adjust according to your needs */
 }

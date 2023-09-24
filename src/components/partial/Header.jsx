@@ -4,14 +4,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "../popup/Login";
+import { Helmet } from "react-helmet";
 const { REACT_APP_API_ENDPOINT } = process.env;
 
-function Header() {
+function Header(props) {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div className="Header">
+      <Helmet>
+        <title>{props.title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Helmet>
       {showPopup && <Login setShowPopup={setShowPopup} />}
 
       <nav className="navbar navbar-expand-lg navbar-light bg-light">

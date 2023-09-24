@@ -7,7 +7,7 @@ function Header() {
   return (
     <footer
       className="bg-light text-center text-lg-start"
-      style={{ position: "absolute", bottom: "0px", width: "100%" }}
+      style={{ width: "100%", padding: "0px", margin: "0px" }}
     >
       <div
         className="text-center p-3"

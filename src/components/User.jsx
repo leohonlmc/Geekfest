@@ -202,7 +202,7 @@ function User() {
     <div className="User">
       <ToastContainer />
 
-      <Header />
+      <Header title="Upload Image | KeyHolder" />
 
       {showPopup && (
         <ViewIcon setShowPopup={setShowPopup} image={currentImage} />

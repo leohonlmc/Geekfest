@@ -61,12 +61,12 @@ function Authenticator() {
 
   return (
     <div>
-      <Header />
+      <Header title="Verify Your Indentity" />
       <div>
         <div className="qr-code-div">
           <h1 style={{ margin: "20px 0px" }}>
             Scan the QR code via "
-            <strong style={{ color: " rgb(0, 213, 255)" }}>
+            <strong style={{ color: "rgb(0, 213, 255)" }}>
               Google Authenticator mobile app
             </strong>
             "
