@@ -9,7 +9,7 @@ import Header from "./partial/Header";
 import Footer from "./partial/Footer";
 import Login from "./popup/Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fa1, fa2 } from "@fortawesome/free-solid-svg-icons";
+import { fa1, fa2, fa3 } from "@fortawesome/free-solid-svg-icons";
 
 function Home() {
   const navigate = useNavigate();
@@ -68,6 +68,11 @@ function Home() {
               Leverage KeyHolder Solutions for Advanced Image Protection and
               Storage 🛡️
             </h2>
+            <p>
+              We care about your privacy and security. We provide a secure
+              platform for you to store your images and share them with your
+              friends and family.
+            </p>
           </div>
           <div className="mission-div">
             <img
@@ -115,6 +120,29 @@ function Home() {
           <div className="mission-div">
             <img
               src="https://s3.ca-central-1.amazonaws.com/myswecompany.com/auth.jpeg"
+              alt=""
+              style={{ width: "100%", borderRadius: "10px" }}
+            />
+          </div>
+
+          <div className="mission-div">
+            <h1 className="centered-content">
+              <FontAwesomeIcon
+                icon={fa3}
+                style={{ color: "#ffa200", marginRight: "10px" }}
+              />
+              Secure Image Encryption
+            </h1>
+            <p>
+              Eliminate the risk of data compromise with our secure image
+              encryption keys. We employ state-of-the-art encryption algorithms
+              to guarantee the utmost security for your data.
+            </p>
+          </div>
+
+          <div className="mission-div">
+            <img
+              src="https://s3.ca-central-1.amazonaws.com/myswecompany.com/encryption-key.webp"
               alt=""
               style={{ width: "100%", borderRadius: "10px" }}
             />
