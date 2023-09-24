@@ -366,23 +366,29 @@ function User() {
                 margin: { windowWidth } < 1208 ? "0px" : "auto",
               }}
             >
-              <h2>Uploaded Images</h2>
-              {correctPin === false ? (
-                <h4>
-                  Browsing all{" "}
-                  <strong style={{ color: "rgb(0, 213, 255)" }}>
-                    {fakeImage && fakeImage.length}
-                  </strong>{" "}
-                  images
-                </h4>
+              {pinEntered === false ? (
+                <h2>Uploaded Images</h2>
               ) : (
-                <h4>
-                  Browsing all{" "}
-                  <strong style={{ color: "rgb(0, 213, 255)" }}>
-                    {allImage.images && allImage.images.length}
-                  </strong>{" "}
-                  images
-                </h4>
+                <div>
+                  <h2>Uploaded Images</h2>
+                  {correctPin === false ? (
+                    <h4>
+                      Browsing all{" "}
+                      <strong style={{ color: "rgb(0, 213, 255)" }}>
+                        {fakeImage && fakeImage.length}
+                      </strong>{" "}
+                      images
+                    </h4>
+                  ) : (
+                    <h4>
+                      Browsing all{" "}
+                      <strong style={{ color: "rgb(0, 213, 255)" }}>
+                        {allImage.images && allImage.images.length}
+                      </strong>{" "}
+                      images
+                    </h4>
+                  )}
+                </div>
               )}
 
               {pinEntered === false ? (
