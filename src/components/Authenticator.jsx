@@ -30,7 +30,9 @@ function Authenticator() {
       }
     };
 
-    generate();
+    if (scannedQRcode !== "true") {
+      generate();
+    }
   }, []);
 
   const verifyToken = async () => {
@@ -42,11 +44,11 @@ function Authenticator() {
       if (res.data.verified) {
         localStorage.setItem("scannedQRcode", "true");
         alert("Verified!");
+        navigate("/upload");
       } else {
         localStorage.setItem("scannedQRcode", "false");
         alert("Verification Failed!");
       }
-      navigate("/upload");
     } catch (error) {
       console.error("Error verifying token", error);
     }
