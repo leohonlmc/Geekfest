@@ -8,7 +8,7 @@ export default function App() {
     <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENTKEY}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="/upload" element={<User />} />
         </Routes>
       </BrowserRouter>

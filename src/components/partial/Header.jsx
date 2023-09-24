@@ -13,6 +13,8 @@ function Header() {
 
   return (
     <div className="Header">
+      {showPopup && <Login setShowPopup={setShowPopup} />}
+
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="#">
           <img
@@ -22,8 +24,6 @@ function Header() {
           />
         </a>
         <div className="navbar sub-navbar" id="navbarNavDropdown">
-          {showPopup && <Login setShowPopup={setShowPopup} />}
-
           <ul className="navbar-nav">
             <li className="nav-item active">
               <a className="nav-link" href="/">

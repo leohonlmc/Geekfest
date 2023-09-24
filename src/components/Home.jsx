@@ -10,10 +10,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./partial/Header";
 import Footer from "./partial/Footer";
+import Login from "./popup/Login";
 const { REACT_APP_API_ENDPOINT } = process.env;
 
 function Home() {
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div className="Home">
@@ -28,13 +30,19 @@ function Home() {
             flexDirection: "column", // Added this line to make the flexbox a column layout
           }}
         >
-          {localStorage.getItem("token") ? (
+          {showPopup && <Login setShowPopup={setShowPopup} />}
+
+          {!localStorage.getItem("token") ? (
             <div>
               <h1 className="slogan-text">
                 <strong>Cloud Image Storage service</strong>
               </h1>
 
-              <button className="btn btn-primary" style={{ marginTop: "10px" }}>
+              <button
+                className="btn btn-primary"
+                style={{ marginTop: "10px" }}
+                onClick={() => setShowPopup(true)}
+              >
                 Upload images
               </button>
             </div>
