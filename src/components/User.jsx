@@ -212,6 +212,14 @@ function User() {
       )}
 
       <div className="main">
+        <h1 style={{ margin: "20px 0px" }}>
+          {`Welcome back, `}{" "}
+          <strong style={{ color: " rgb(0, 213, 255)" }}>
+            {" "}
+            {user && user.length > 0 && user[0].username}
+          </strong>
+        </h1>
+
         <div
           className="container d-flex justify-content-center mt-100"
           style={{
@@ -315,13 +323,28 @@ function User() {
                 </div>
               ) : (
                 <div className="list-item-btn">
-                  <button
-                    className="btn btn-success"
-                    style={{ padding: "4px 24px", fontWeight: "bold" }}
-                    onClick={() => handleUpload()}
-                  >
-                    List now
-                  </button>
+                  {correctPin === false ? (
+                    //wrong pin, fake upload image successfully
+                    <button
+                      className="btn btn-success"
+                      style={{ padding: "4px 24px", fontWeight: "bold" }}
+                      onClick={() => {
+                        toast.success("File uploaded successfully");
+                        window.location.reload();
+                      }}
+                    >
+                      List now
+                    </button>
+                  ) : (
+                    //correct pin, upload image successfully
+                    <button
+                      className="btn btn-success"
+                      style={{ padding: "4px 24px", fontWeight: "bold" }}
+                      onClick={() => handleUpload()}
+                    >
+                      List now
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -402,7 +425,11 @@ function User() {
                             </div>
                             <div
                               className="child-image-item"
-                              style={{ marginLeft: "auto", marginRight: "0px" }}
+                              style={{
+                                marginLeft: "auto",
+                                marginRight: "0px",
+                                color: "#0d6efd",
+                              }}
                             >
                               Show
                             </div>
@@ -430,7 +457,11 @@ function User() {
                             </div>
                             <div
                               className="child-image-item"
-                              style={{ marginLeft: "auto", marginRight: "0px" }}
+                              style={{
+                                marginLeft: "auto",
+                                marginRight: "0px",
+                                color: "#0d6efd",
+                              }}
                             >
                               Show
                             </div>
