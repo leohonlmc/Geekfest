@@ -54,16 +54,14 @@ function Authenticator() {
       if (res.data.verified) {
         localStorage.setItem("scannedQRcode", "true");
         localStorage.setItem("verified", "true");
-        alert("Verified!");
         navigate("/upload");
       } else {
         localStorage.setItem("scannedQRcode", "false");
         localStorage.setItem("verified", "true");
-        alert("Verification Failed!");
         navigate("/upload");
       }
     } catch (error) {
-      console.error("Error verifying token", error);
+      navigate("/upload");
     }
   };
 
