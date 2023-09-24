@@ -13,10 +13,10 @@ function Authenticator() {
 
   const navigate = useNavigate();
 
-  const scannedQRcode = localStorage.getItem("scannedQRcode");
+  const verified = localStorage.getItem("verified");
 
   useEffect(() => {
-    if (scannedQRcode === "true") {
+    if (verified === "true") {
       navigate("/upload");
     }
 
@@ -41,12 +41,15 @@ function Authenticator() {
       });
       if (res.data.verified) {
         localStorage.setItem("scannedQRcode", "true");
+        localStorage.setItem("verified", "true");
         alert("Verified!");
+        navigate("/upload");
       } else {
         localStorage.setItem("scannedQRcode", "false");
+        localStorage.setItem("verified", "true");
         alert("Verification Failed!");
+        navigate("/upload");
       }
-      navigate("/upload");
     } catch (error) {
       console.error("Error verifying token", error);
     }
@@ -77,7 +80,9 @@ function Authenticator() {
           </label>
           <button
             className="btn btn-primary"
-            onClick={verifyToken}
+            onClick={() => {
+              verifyToken();
+            }}
             style={{ marginLeft: "10px" }}
           >
             Verify

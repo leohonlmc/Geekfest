@@ -38,7 +38,11 @@ function Header() {
               </li>
             ) : (
               <li className="nav-item">
-                <span className="nav-link" onClick={() => setShowPopup(true)}>
+                <span
+                  className="nav-link"
+                  onClick={() => setShowPopup(true)}
+                  style={{ cursor: "pointer" }}
+                >
                   Upload
                 </span>
               </li>

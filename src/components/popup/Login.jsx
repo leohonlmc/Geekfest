@@ -48,6 +48,7 @@ const Login = ({ setShowPopup, ...props }) => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("id", data.user);
       localStorage.setItem("scannedQRcode", "false");
+      localStorage.setItem("verified", "false");
     } catch (ex) {
       console.log(ex);
       toast.error("Email already exists or invalid email");

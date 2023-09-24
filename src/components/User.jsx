@@ -47,6 +47,7 @@ function User() {
   const [correctPin, setCorrectPin] = useState(false);
 
   const scannedQRcode = localStorage.getItem("scannedQRcode");
+  const verified = localStorage.getItem("verified");
 
   const fakeImage = [
     "312kjajkbda38apple.png",
@@ -67,6 +68,10 @@ function User() {
 
     if (!token) {
       navigate("/");
+    }
+
+    if (verified === "false") {
+      navigate("/auth");
     }
 
     if (scannedQRcode === "false") {
@@ -175,6 +180,7 @@ function User() {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
     localStorage.removeItem("scannedQRcode");
+    localStorage.removeItem("verified");
     navigate("/");
   };
 
@@ -385,7 +391,7 @@ function User() {
                             className="child-image-item"
                             style={{ display: "flex" }}
                           >
-                            <p key={index}>{image}</p>
+                            <p key={index}>{image.slice(31)}</p>
                           </div>
                           <div
                             className="child-image-item"
@@ -417,7 +423,7 @@ function User() {
                             className="child-image-item"
                             style={{ display: "flex" }}
                           >
-                            <p key={index}>{image}</p>
+                            <p key={index}>{image.slice(31)}</p>
                           </div>
                           <div
                             className="child-image-item"
