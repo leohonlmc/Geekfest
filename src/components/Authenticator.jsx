@@ -10,6 +10,7 @@ function Authenticator() {
   const [dataURL, setDataURL] = useState("");
   const [secret, setSecret] = useState("");
   const [token, setToken] = useState("");
+  const [verifiedBefore, setVerifiedBefore] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,7 +27,11 @@ function Authenticator() {
 
     const generate = async () => {
       try {
-        const res = await axios.get(`${REACT_APP_API_ENDPOINT}/generate`);
+        const res = await axios.get(
+          `${REACT_APP_API_ENDPOINT}/generate/${localStorage.getItem("id")}`
+        );
+        // console.log(res.data.verified);
+        setVerifiedBefore(res.data.verified);
         setDataURL(res.data.dataURL);
         setSecret(res.data.secret);
       } catch (error) {
@@ -39,10 +44,13 @@ function Authenticator() {
 
   const verifyToken = async () => {
     try {
-      const res = await axios.post(`${REACT_APP_API_ENDPOINT}/verify`, {
-        token,
-        secret,
-      });
+      const res = await axios.post(
+        `${REACT_APP_API_ENDPOINT}/verify/${localStorage.getItem("id")}`,
+        {
+          token,
+          secret,
+        }
+      );
       if (res.data.verified) {
         localStorage.setItem("scannedQRcode", "true");
         localStorage.setItem("verified", "true");
@@ -71,7 +79,11 @@ function Authenticator() {
             </strong>
             "
           </h1>
-          <img className="qr-code-image" src={dataURL} alt="QR Code" />
+
+          {verifiedBefore === true ? null : (
+            <img className="qr-code-image" src={dataURL} alt="QR Code" />
+          )}
+
           <br />
 
           <label>
