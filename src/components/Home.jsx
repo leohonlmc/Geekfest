@@ -9,9 +9,12 @@ import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./partial/Header";
+import Footer from "./partial/Footer";
 const { REACT_APP_API_ENDPOINT } = process.env;
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="Home">
       <Header />
@@ -25,17 +28,34 @@ function Home() {
             flexDirection: "column", // Added this line to make the flexbox a column layout
           }}
         >
-          <div>
-            <h1 className="slogan-text">
-              <strong>Cloud Image Storage service</strong>
-            </h1>
+          {localStorage.getItem("token") ? (
+            <div>
+              <h1 className="slogan-text">
+                <strong>Cloud Image Storage service</strong>
+              </h1>
 
-            <button className="btn btn-primary" style={{ marginTop: "10px" }}>
-              Upload images
-            </button>
-          </div>
+              <button className="btn btn-primary" style={{ marginTop: "10px" }}>
+                Upload images
+              </button>
+            </div>
+          ) : (
+            <div>
+              <h1 className="slogan-text">
+                <strong>Cloud Image Storage service</strong>
+              </h1>
+
+              <button
+                className="btn btn-primary"
+                style={{ marginTop: "10px" }}
+                onClick={() => navigate("/upload")}
+              >
+                Upload images
+              </button>
+            </div>
+          )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
