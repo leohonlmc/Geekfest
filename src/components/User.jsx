@@ -34,7 +34,7 @@ function User() {
   const navigate = useNavigate();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [user, setUser] = useState({});
-  const [allImage, setAllImage] = useState([]);
+  const [allImage, setAllImage] = useState({ images: [] });
 
   const [imageSrcs, setImageSrcs] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
@@ -382,7 +382,9 @@ function User() {
                     <h4>
                       Browsing all{" "}
                       <strong style={{ color: "rgb(0, 213, 255)" }}>
-                        {allImage.images && allImage.images.length}
+                        {allImage && allImage.images
+                          ? allImage.images.length
+                          : 0}
                       </strong>{" "}
                       images
                     </h4>
