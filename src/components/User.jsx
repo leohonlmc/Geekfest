@@ -152,7 +152,7 @@ function User() {
 
     try {
       const response = await axios.post(
-        `${REACT_APP_API_ENDPOINT}/upload`,
+        `${REACT_APP_API_ENDPOINT}/upload/image`,
         {
           sub: localStorage.getItem("id"),
           images: imageFiles,
