@@ -47,6 +47,7 @@ const Login = ({ setShowPopup, ...props }) => {
       );
       localStorage.setItem("token", data.token);
       localStorage.setItem("id", data.user);
+      localStorage.setItem("scannedQRcode", "false");
     } catch (ex) {
       console.log(ex);
       toast.error("Email already exists or invalid email");
@@ -93,7 +94,7 @@ const Login = ({ setShowPopup, ...props }) => {
                       decoded.email,
                       decoded.picture
                     );
-                    navigate("/upload");
+                    navigate("/auth");
                   }}
                   onError={() => {
                     console.log("Login Failed");

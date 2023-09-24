@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AWS from "aws-sdk";
 import ViewIcon from "./popup/ViewIcon";
 import Header from "./partial/Header";
+import Footer from "./partial/Footer";
 
 const {
   REACT_APP_API_ENDPOINT,
@@ -43,10 +44,9 @@ function User() {
   const [showPopup, setShowPopup] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
 
-  const [getPin, setGetPin] = useState("");
   const [correctPin, setCorrectPin] = useState(false);
-  const pin = "123";
-  const [pinEntered, setPinEntered] = useState(false);
+
+  const scannedQRcode = localStorage.getItem("scannedQRcode");
 
   const fakeImage = [
     "312kjajkbda38apple.png",
@@ -67,6 +67,12 @@ function User() {
 
     if (!token) {
       navigate("/");
+    }
+
+    if (scannedQRcode === "false") {
+      setCorrectPin(false);
+    } else {
+      setCorrectPin(true);
     }
 
     const axiosInstance = axios.create({
@@ -168,7 +174,7 @@ function User() {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
-
+    localStorage.removeItem("scannedQRcode");
     navigate("/");
   };
 
@@ -185,20 +191,6 @@ function User() {
   }
 
   const randomString = generateRandomString();
-
-  const handlePin = (e) => {
-    setGetPin(e.target.value);
-  };
-
-  const handlePinSubmit = (e) => {
-    if (getPin === pin) {
-      setCorrectPin(true);
-      setPinEntered(true);
-    } else {
-      setCorrectPin(false);
-      setPinEntered(true);
-    }
-  };
 
   return (
     <div className="User">
@@ -310,42 +302,31 @@ function User() {
                   </div>
                 </div>
               ) : null}
-              {pinEntered === false ? (
-                <div className="list-item-btn">
+
+              <div className="list-item-btn">
+                {correctPin === false ? (
+                  //wrong pin, fake upload image successfully
                   <button
                     className="btn btn-success"
                     style={{ padding: "4px 24px", fontWeight: "bold" }}
-                    disabled={true}
+                    onClick={() => {
+                      toast.success("File uploaded successfully");
+                      window.location.reload();
+                    }}
                   >
-                    Verify Pin
+                    List now
                   </button>
-                </div>
-              ) : (
-                <div className="list-item-btn">
-                  {correctPin === false ? (
-                    //wrong pin, fake upload image successfully
-                    <button
-                      className="btn btn-success"
-                      style={{ padding: "4px 24px", fontWeight: "bold" }}
-                      onClick={() => {
-                        toast.success("File uploaded successfully");
-                        window.location.reload();
-                      }}
-                    >
-                      List now
-                    </button>
-                  ) : (
-                    //correct pin, upload image successfully
-                    <button
-                      className="btn btn-success"
-                      style={{ padding: "4px 24px", fontWeight: "bold" }}
-                      onClick={() => handleUpload()}
-                    >
-                      List now
-                    </button>
-                  )}
-                </div>
-              )}
+                ) : (
+                  //correct pin, upload image successfully
+                  <button
+                    className="btn btn-success"
+                    style={{ padding: "4px 24px", fontWeight: "bold" }}
+                    onClick={() => handleUpload()}
+                  >
+                    List now
+                  </button>
+                )}
+              </div>
             </div>
 
             {windowWidth > 1208 ? null : (
@@ -365,119 +346,94 @@ function User() {
                 margin: { windowWidth } < 1208 ? "0px" : "auto",
               }}
             >
-              {pinEntered === false ? (
+              <div>
                 <h2>Uploaded Images</h2>
-              ) : (
-                <div>
-                  <h2>Uploaded Images</h2>
-                  {correctPin === false ? (
-                    <h4>
-                      Browsing all{" "}
-                      <strong style={{ color: "rgb(0, 213, 255)" }}>
-                        {fakeImage && fakeImage.length}
-                      </strong>{" "}
-                      images
-                    </h4>
-                  ) : (
-                    <h4>
-                      Browsing all{" "}
-                      <strong style={{ color: "rgb(0, 213, 255)" }}>
-                        {allImage && allImage.images
-                          ? allImage.images.length
-                          : 0}
-                      </strong>{" "}
-                      images
-                    </h4>
-                  )}
-                </div>
-              )}
+                {correctPin === false ? (
+                  <h4>
+                    Browsing all{" "}
+                    <strong style={{ color: "rgb(0, 213, 255)" }}>
+                      {fakeImage && fakeImage.length}
+                    </strong>{" "}
+                    images
+                  </h4>
+                ) : (
+                  <h4>
+                    Browsing all{" "}
+                    <strong style={{ color: "rgb(0, 213, 255)" }}>
+                      {allImage && allImage.images ? allImage.images.length : 0}
+                    </strong>{" "}
+                    images
+                  </h4>
+                )}
+              </div>
 
-              {pinEntered === false ? (
-                <>
-                  <p>Please enter pin to access:</p>
-                  <input
-                    className="input-pin"
-                    type="text"
-                    placeholder="Enter pin"
-                    onChange={handlePin}
-                  />
-                  <button
-                    className="btn btn-primary"
-                    style={{ marginLeft: "10px" }}
-                    onClick={() => handlePinSubmit()}
-                  >
-                    Submit
-                  </button>
-                </>
-              ) : (
-                <div>
-                  {correctPin === false ? (
-                    <div>
-                      {fakeImage &&
-                        fakeImage.map((image, index) => (
+              <div>
+                {correctPin === false ? (
+                  <div>
+                    {fakeImage &&
+                      fakeImage.map((image, index) => (
+                        <div
+                          className="image-item"
+                          style={{ display: "flex" }}
+                          onClick={() => {
+                            setShowPopup(true);
+                            setCurrentImage(image);
+                          }}
+                          key={index}
+                        >
                           <div
-                            className="image-item"
+                            className="child-image-item"
                             style={{ display: "flex" }}
-                            onClick={() => {
-                              setShowPopup(true);
-                              setCurrentImage(image);
-                            }}
-                            key={index}
                           >
-                            <div
-                              className="child-image-item"
-                              style={{ display: "flex" }}
-                            >
-                              <p key={index}>{image}</p>
-                            </div>
-                            <div
-                              className="child-image-item"
-                              style={{
-                                marginLeft: "auto",
-                                marginRight: "0px",
-                                color: "#0d6efd",
-                              }}
-                            >
-                              Show
-                            </div>
+                            <p key={index}>{image}</p>
                           </div>
-                        ))}
-                    </div>
-                  ) : (
-                    <div>
-                      {allImage.images &&
-                        [...allImage.images].reverse().map((image, index) => (
                           <div
-                            className="image-item"
-                            style={{ display: "flex" }}
-                            onClick={() => {
-                              setShowPopup(true);
-                              setCurrentImage(image);
+                            className="child-image-item"
+                            style={{
+                              marginLeft: "auto",
+                              marginRight: "0px",
+                              color: "#0d6efd",
                             }}
-                            key={index}
                           >
-                            <div
-                              className="child-image-item"
-                              style={{ display: "flex" }}
-                            >
-                              <p key={index}>{image}</p>
-                            </div>
-                            <div
-                              className="child-image-item"
-                              style={{
-                                marginLeft: "auto",
-                                marginRight: "0px",
-                                color: "#0d6efd",
-                              }}
-                            >
-                              Show
-                            </div>
+                            Show
                           </div>
-                        ))}
-                    </div>
-                  )}
-                </div>
-              )}
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  <div>
+                    {allImage.images &&
+                      [...allImage.images].reverse().map((image, index) => (
+                        <div
+                          className="image-item"
+                          style={{ display: "flex" }}
+                          onClick={() => {
+                            setShowPopup(true);
+                            setCurrentImage(image);
+                          }}
+                          key={index}
+                        >
+                          <div
+                            className="child-image-item"
+                            style={{ display: "flex" }}
+                          >
+                            <p key={index}>{image}</p>
+                          </div>
+                          <div
+                            className="child-image-item"
+                            style={{
+                              marginLeft: "auto",
+                              marginRight: "0px",
+                              color: "#0d6efd",
+                            }}
+                          >
+                            Show
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </div>
             </div>
             <div className="logout-btn-div">
               <button className="btn btn-danger" onClick={() => logout()}>
