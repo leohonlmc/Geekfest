@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AWS from "aws-sdk";
 import ViewIcon from "./popup/ViewIcon";
 import Header from "./partial/Header";
+import Loading from "./popup/Loading";
 
 const {
   REACT_APP_API_ENDPOINT,
@@ -44,6 +45,8 @@ function User() {
   const [currentImage, setCurrentImage] = useState("");
 
   const [correctPin, setCorrectPin] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const scannedQRcode = localStorage.getItem("scannedQRcode");
   const verified = localStorage.getItem("verified");
@@ -133,6 +136,7 @@ function User() {
 
   //upload image
   const handleUpload = async () => {
+    setLoading(true);
     if (selectedFile) {
       const params = {
         Key: imageFiles,
@@ -155,6 +159,7 @@ function User() {
           console.log(err);
         } else {
           toast.success("File uploaded successfully");
+          setLoading(false);
         }
       });
     }
@@ -204,6 +209,8 @@ function User() {
       <ToastContainer />
 
       <Header title="Upload Image | KeyHolder" />
+
+      {loading ? <Loading /> : null}
 
       {showPopup && (
         <ViewIcon setShowPopup={setShowPopup} image={currentImage} />
