@@ -184,9 +184,10 @@ function User() {
     navigate("/");
   };
 
+  // Secure Image Encryption
   function generateRandomString() {
     const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$*()_-+=<>?/";
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$*";
     let result = "";
     for (let i = 0; i < 10; i++) {
       const randomIndex = Math.floor(Math.random() * chars.length);
@@ -376,6 +377,7 @@ function User() {
               <div>
                 {correctPin === false ? (
                   <div>
+                    {/* loop the Faker Image list  */}
                     {fakeImage &&
                       fakeImage.map((image, index) => (
                         <div
@@ -408,6 +410,7 @@ function User() {
                   </div>
                 ) : (
                   <div>
+                    {/* loop the user private images*/}
                     {allImage?.images &&
                       [...allImage.images].reverse().map((image, index) => (
                         <div

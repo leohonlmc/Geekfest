@@ -51,7 +51,7 @@ const Login = ({ setShowPopup, ...props }) => {
       localStorage.setItem("verified", "false");
       navigate("/auth");
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       toast.error("Email already exists or invalid email");
     }
   };
