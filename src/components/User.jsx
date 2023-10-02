@@ -12,6 +12,7 @@ import Header from "./partial/Header";
 import Loading from "./popup/Loading";
 
 const {
+  REACT_APP_BUCKET,
   REACT_APP_API_ENDPOINT,
   REACT_APP_ACCESS_ID,
   REACT_APP_SECRET_ACCESS_ID,
@@ -27,7 +28,7 @@ AWS.config.update({
 
 const s3 = new AWS.S3({
   params: {
-    Bucket: "myswecompany.com",
+    Bucket: REACT_APP_BUCKET,
   },
 });
 
